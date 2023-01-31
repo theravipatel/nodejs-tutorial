@@ -113,3 +113,25 @@ http.createServer((req, res) => {
     - **repository**: It contain the information about the type and url of the repository where the code of the application lives is mentioned here in this segment. 
     - **bugs**: The url and email where the bugs in the application should be reported are mentioned in this segment.
 - **NOTE** that after installing external package to the project, it will create **node_modules** folder which may contains multiple packages so to avoid pushing it to github repository, add **node_module** folder to **.gitignore** file. 
+
+## 10) Getting input from command line
+- To get input and use/display it in the program from command, use `progress.argv` as below:
+- get_input_from_command.js
+```
+console.log(process.argv);
+```
+
+- In terminal run:
+```
+node get_input_from_command.js Hi Hello
+```
+
+- It will display result like below:
+```
+[
+  'C:\\Program Files\\nodejs\\node.exe',
+  'F:\\xampp\\htdocs\\demo\\nodejs\\get_input_from_command.js',
+  'Hi',
+  'Hello'
+]
+```

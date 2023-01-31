@@ -91,3 +91,25 @@ http.createServer((req, res) => {
 }).listen(5000); //the server object listens on port 5000
 ```
 - Now run `node create_server.js` in terminal and `http://localhost:5000` in browser
+
+## 9) Package.json file
+- It is the manifest file of any Node.js project and contains the metadata of the project.
+- It can be categorised into below categories:
+    - **Identifying metadata properties**: It basically consists of the properties to identify the module/project such as the name of the project, current version of the module, licence, author of the project, description about the project etc. 
+    - **Functional metadata properties**: As the name suggests, it consists of the functional values/properties of the project/module such as the entry/starting point of the module, dependencies in project, scripts being used, repository links of Node project etc.
+- It can be create using command `npm init`
+- Package.json file properties as below:
+    - **name**: The name of the application/project. 
+    - **version**: The version of application. The version should follow semantic versioning rules. 
+    - **description**: The description about the application, purpose of the application, technology used like React, MongoDB, etc. 
+    - **main**: This is the entry/starting point of the app. It specifies the main file of the application that triggers when the application starts. Application can be started using npm start. 
+    - **scripts**: The scripts which needs to be included in the application to run properly. 
+    - **engines**: The versions of the node and npm used. These versions are specified in case the application is deployed on cloud like heroku or google-cloud. 
+    - **keywords**: It specifies the array of strings that characterizes the application. 
+    - **author**: It consist of the information about the author like name, email and other author related information. 
+    - **license**: The license to which the application confirms are mentioned in this key-value pair. 
+    - **dependencies**: The third party package or modules installed using npm are specified in this segment. 
+    - **devDependencies**: The dependencies that are used only in the development part of the application are specified in this segment. These dependencies do not get rolled out when the application is in production stage. 
+    - **repository**: It contain the information about the type and url of the repository where the code of the application lives is mentioned here in this segment. 
+    - **bugs**: The url and email where the bugs in the application should be reported are mentioned in this segment.
+- **NOTE** that after installing external package to the project, it will create **node_modules** folder which may contains multiple packages so to avoid pushing it to github repository, add **node_module** folder to **.gitignore** file. 

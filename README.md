@@ -150,4 +150,35 @@ for (var i = 1; i<=5; i++) {
 	fs.writeFileSync(`${myDirPath}/my_file_${i}.txt`, "This is my file content");
 }
 ```
- 
+
+## 12) Display file list of folder
+- read_file_list.js
+```
+var fs = require("fs");
+var path = require("path");
+
+var myDirPath = path.join(__dirname, "my_folder");
+
+fs.readdir(myDirPath, (error, files) => {
+	console.log(files); // List of file in array
+	
+    files.forEach((item) => {
+        console.log(item); // single file list
+    });
+});
+``` 
+- Result will be like below:
+```
+[
+  'my_file_1.txt',
+  'my_file_2.txt',
+  'my_file_3.txt',
+  'my_file_4.txt',
+  'my_file_5.txt' 
+]
+my_file_1.txt
+my_file_2.txt
+my_file_3.txt
+my_file_4.txt
+my_file_5.txt
+```

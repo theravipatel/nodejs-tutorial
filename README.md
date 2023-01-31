@@ -135,3 +135,19 @@ node get_input_from_command.js Hi Hello
   'Hello'
 ]
 ```
+
+## 11) Create File in Folder
+- Create one folder “my_folder”.
+- create_file_in_folder.js
+```
+var fs = require("fs");
+var path = require("path");
+
+var myDirPath = path.join(__dirname, "my_folder"); 
+
+// need to create folder manually 
+for (var i = 1; i<=5; i++) {
+	fs.writeFileSync(`${myDirPath}/my_file_${i}.txt`, "This is my file content");
+}
+```
+ 

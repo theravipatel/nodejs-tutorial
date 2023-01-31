@@ -13,7 +13,6 @@ node -v
 ```
 
 ## 3) Check NPM version 
-
 ```
 npm -v
 ```
@@ -25,7 +24,6 @@ console.log("Hello World!");
 ```
 
 - In terminal, run below command. It will print "Hello World!"
-
 ```
 node index.js
 ```
@@ -40,7 +38,6 @@ node index.js
 
 ## 6) Core Modules
 - core_module.js
-
 ```
 console.log("Console is core global module.");
 ```
@@ -58,7 +55,6 @@ fs("file_name.txt","This is file content.");
 
 ## 7) User Created or Local module
 - local_module.js
-
 ```
 module.exports = {
     x: 10,
@@ -70,7 +66,6 @@ module.exports = {
 ```
 
 - app.js
-
 ```
 var local_module = require('./local_module');
 
@@ -79,3 +74,20 @@ console.log(local_module.y); // Print 20
 console.log(local_module.x + local_module.y); // Print 30
 console.log(local_module.my_function()); // Call my_function
 ```
+
+## 8) HTTP Module
+- It is a built-in module, which allows Node.js to transfer data over the Hyper Text Transfer Protocol (HTTP).
+- Include HTTP module by using `var http = require('http');`
+- It is also used to create an HTTP server that listens to server ports and gives a response back to the client. Use the `createServer()` method to create an HTTP server.
+- create_server.js
+```
+var http = require('http');
+
+//create a server object:
+http.createServer((req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/html'}); // 200 status, HTML content type
+    res.write('Hello World!'); //write a response to the client
+    res.end(); //end the response
+}).listen(5000); //the server object listens on port 5000
+```
+- Now run `node create_server.js` in terminal and `http://localhost:5000` in browser

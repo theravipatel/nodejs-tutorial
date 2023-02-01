@@ -284,3 +284,32 @@ This will execute first as 10 + 0 = 10 -->  10
 =========
 10 + 20 = 30 -->  30
 ```
+
+## 16) How nodejs works in the background
+- In the background, nodejs program execution works like below:
+    - Step 1: Call Stack (main() function will call first, followed by first line of code)
+    - Step 2: Node APIs (if any, e.g. setTimeout() which is written in c++ etc..)
+    - Step 3: Callback Queue (if any, once main() function remove from call stack, callback queue start moving into the call stack for execution)
+- We can call Step 1 to 3 process as **Event Loop** 
+- nodejs_works_in_back.js
+```
+console.log("Task 1");
+
+setTimeout(() => {
+    console.log("Task 2 will execute last.");
+}, 1000);
+
+setTimeout(() => {
+    console.log("Task 3");
+}, 0);
+
+console.log("Task 4");
+```
+
+- Result will be like below:
+```
+Task 1
+Task 4
+Task 3
+Task 2 will execute last.
+```

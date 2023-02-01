@@ -313,3 +313,29 @@ Task 4
 Task 3
 Task 2 will execute last.
 ```
+
+## 17) Install external packages using npm install and use it
+- It will create **node_module** folder and all packages will be saved in that folder
+- Create `.gitignore` file and add `/node_modules` to avoid upload node_modules folder to git repo.
+- Below are few examples of external node packages: 
+- Nodemon - For automatically restarting the node application when file changes in the directory are detected. In terminal run, `nodemon .\external_nodejs_packages.js` and it will restart automatically after any file changes.
+```
+npm i nodemon -g
+```
+
+- Expressjs - framework for Node.js
+```
+npm i express
+```
+
+- Colors - For color and style in your node.js console
+```
+npm i colors
+```
+
+- extrnal_nodejs_packages.js
+```
+var colors = require("colors");
+console.log("Hello world!".green.bgWhite);
+console.log("Hello world!".blue.bgYellow.underline);
+```

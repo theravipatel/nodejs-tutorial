@@ -225,3 +225,32 @@ fs.rename(myFilePath, newMyFilePath, (error) => {
 // Delete File
 fs.unlinkSync(newMyFilePath);
 ```
+
+## 14) Asynchronous Programming
+- async_program.js
+```
+// Demo 1
+console.log("Task 1");
+console.log("Task 2");
+console.log("Task 3");
+```
+
+```
+// Demo 2 - Here Task 3 will execute after Task 1.
+console.log("Task 1");
+setTimeout(() => {
+    console.log("Task 2 will execute last.");
+}, 1000);
+console.log("Task 3");
+```
+
+- Result will be like below:
+```
+Task 1
+Task 2      
+Task 3      
+============
+Task 1      
+Task 3      
+Task 2
+```

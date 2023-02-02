@@ -447,3 +447,39 @@ app.get("*", (req, res) => {
 
 app.listen(5000);
 ```
+
+## 22) ExpressJs: Intro of EJS Template Engine
+- EJS or Embedded Javascript Templating is a templating engine used by Node.js. Template engine helps to create an HTML template with minimal code. Also, it can inject data into HTML template at the client side and produce the final HTML. EJS is a simple templating language which is used to generate HTML markup with plain JavaScript.
+- Install EJS using `npm install ejs`
+- To work with EJS, Create `views` folder in the root directory and in that folder, all view files have `.ejs` extension.
+- The `app.set(name, value)` function is used to assigns the setting name to value and the `app.get('title'))` function used to get the value. You may store any value that you want, but certain names can be used to configure the behavior of the server.
+- The `res.render(view [, locals] [, callback])` function is used to render a view and sends the rendered HTML string to the client.
+- The `app.render(view, [locals], callback)` function is used to rendered HTML of a view via the callback function. This function returns the html in the callback function.
+- In view file, we can include other view file by using `<%- include('common/header'); %>` where `common` is a folder within `views` folder for common files like header, footer etc.
+- express_js_intro_ejs_template_engine.js
+```
+var express = require("express");
+var app = express();
+
+app.set("view engine", "ejs");
+
+app.get("", (req, res) => {
+    res.render("index");
+});
+
+app.get("/profile", (req, res) => {
+    var user = {
+        name: 'Ravi Patel',
+        email: 'ravi@test.com',
+        skills: ['PHP', 'Laravel', 'MySQL', 'VueJs', 'NodeJs']
+    }
+    res.render("profile", {user});
+});
+
+app.render('email', function (err, html) {
+    if (err) console.log(err);
+    console.log(html);
+});
+
+app.listen(5000);
+```

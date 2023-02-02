@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page - EJS Template</title>
+</head>
+<body>
+    <%- include('common/header'); %>
+    <h1>This is Profile Page of EJS Template!</h1>
+    <br><br>
+    <h3>Welcome, <%= user.name %> (<%= user.email %>)</h3>
+    <br><br>
+    <h4><u>Skils:</u></h4>
+    <ul>
+        <% user.skills.forEach((item) => { %>
+            <li><%= item %></li>
+        <% }) %>
+    </ul>
+</body>
+</html>

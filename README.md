@@ -340,7 +340,7 @@ console.log("Hello world!".green.bgWhite);
 console.log("Hello world!".blue.bgYellow.underline);
 ```
 
-## 18) Introduction to Express Js
+## 18) ExpressJs: Introduction to Express Js
 - express_js_intro.js
 ```
 var express = require("express");
@@ -378,7 +378,7 @@ var server = app.listen(5000, () => {
  });
 ```
 
-## 19) Render HTML and JSON
+## 19) ExpressJs: Render HTML and JSON
 - express_js_render_html_json.js
 - URLs will be like: 
     - 1) http://localhost:5000/?name=ravi
@@ -403,6 +403,22 @@ app.get("/view-json-data", (req, res) => {
     ];
     res.send(json_data);
 });
+
+app.listen(5000);
+```
+
+## 20) ExpressJs: Access HTML pages and static content using express.static
+- Create folder i.e. `public` and html files index.html, about-us.html in the new folder
+- To access static files, such as images, CSS, JavaScript, etc. we will use `express.static` which is a built-in middleware of Express Js
+- express_js_access_html_pages_and_static_content.js
+```
+var express = require("express");
+var path = require("path"); //To access 'public' directory, use 'path' module
+
+var publicPath = path.join(__dirname, "public");
+var app = express();
+
+app.use(express.static(publicPath));
 
 app.listen(5000);
 ```

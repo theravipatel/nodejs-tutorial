@@ -541,3 +541,39 @@ app.listen(5000);
 
     app.listen(5000);
     ```
+
+## 24) ExpressJs: Apply route level middleware using Route() and use separate middleware file
+- Create separate express_js_middleware.js file and add filter code there.
+```
+module.exports = route_level_middleware = (req, res, next) => {
+    if (!req.query.isLogin) {
+        res.send("Please login to access pages..! 111");
+    } else if (req.query.isLogin != 'true') {
+        res.send("Please login to access pages..! 222");
+    }
+    next(); // <<<--- Don't forgot to add next() function.
+}
+```
+
+- Import middleware.js in to other file
+- express_js_import_middleware.js
+```
+var express = require("express");
+var app = express();
+var route_level_middleware = require("./express_js_middleware");
+var route = express.Router();
+
+route.use(route_level_middleware);
+
+app.get("", (req, res) => {
+    res.send("This is Home Page!");
+});
+
+route.get("/profile", (req, res) => {
+    res.send("This is Profile Page!");
+});
+
+app.use("/", route);
+
+app.listen(5000);
+```

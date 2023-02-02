@@ -483,3 +483,61 @@ app.render('email', function (err, html) {
 
 app.listen(5000);
 ```
+
+## 23) ExpressJs: Middleware
+- Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle. These functions are used to modify req and res objects for tasks like parsing request bodies, adding response headers, etc.
+- It can be application level middleware, route level middleware, error handling middleware, built-in middleware, third party middleware.
+
+    - Application Level Middleware: It will apply to all routes
+    - express_js_application_level_middleware.js
+    ```
+    var express = require("express");
+    var app = express();
+
+    var app_level_middleware = (req, res, next) => {
+        if (!req.query.isLogin) {
+            res.send("Please login to access pages..! 111");
+        } else if (req.query.isLogin != 'true') {
+            res.send("Please login to access pages..! 222");
+        }
+        next(); // <<<--- Don't forgot to add next() function.
+    }
+
+    app.use(app_level_middleware);
+
+    app.get("", (req, res) => {
+        res.send("This is Home Page!");
+    });
+
+    app.get("/profile", (req, res) => {
+        res.send("This is Profile Page!");
+    });
+
+    app.listen(5000);
+    ```
+    
+    - Route Level Middleware: It will apply to only selected routes
+    - express_js_route_level_middleware.js
+    ```
+    var express = require("express");
+    var app = express();
+
+    var route_level_middleware = (req, res, next) => {
+        if (!req.query.isLogin) {
+            res.send("Please login to access pages..! 111");
+        } else if (req.query.isLogin != 'true') {
+            res.send("Please login to access pages..! 222");
+        }
+        next(); // <<<--- Don't forgot to add next() function.
+    }
+
+    app.get("", (req, res) => {
+        res.send("This is Home Page!");
+    });
+
+    app.get("/profile", route_level_middleware, (req, res) => {
+        res.send("This is Profile Page!");
+    });
+
+    app.listen(5000);
+    ```

@@ -669,3 +669,48 @@ app.listen(5000);
     ```
     db.posts.deleteMany({ likes: 20 })
     ```
+
+## 28) MongoDB: Query Operators
+- MongoDB query operator includes comparison, logical, evaluation, element, geospatial, array, bitwise, and comment operators. Few basic operators are listed below:
+- Comparison - The following operators can be used in queries to compare values:
+    - `$eq`: Values are equal.
+        - **Ex.**: `db.posts.find({ likes: { $eq: 20 } })`
+    - `$ne`: Values are not equal.
+        - **Ex.**: `db.posts.find({ likes: { $ne: 20} })`
+    - `$gt`: Value is greater than another value.
+        - **Ex.**: `db.posts.find({ likes: { $gt: 20} })`
+    - `$gte`: Value is greater than or equal to another value.
+        - **Ex.**: `db.posts.find({ likes: { $gte: 20} })`
+    - `$lt`: Value is less than another value.
+        - **Ex.**: `db.posts.find({ likes: { $lt: 20} })`
+    - `$lte`: Value is less than or equal to another value.
+        - **Ex.**: `db.posts.find({ likes: { $lte: 20} })`
+    - `$in`: Value is matched within an array.
+        - **Ex.**: `db.posts.find({ category: { $in: ["Event", "News"]} })`
+
+- Logical - The following operators can logically compare multiple queries.
+    - `$and`: Returns documents where both queries match.
+        - **Ex.**: `db.posts.find({ $and: [{ likes: { $ne: 200 }}, {title: { $eq: 'Post Title 1' }}] })`
+    - `$or`: Returns documents where either query matches.
+        - **Ex.**: `db.posts.find({ $or: [{ likes: { $ne: 200 }}, {title: { $eq: 'Post Title 1' }}] })`
+    - `$nor`: Returns documents where both queries fail to match.
+        - **Ex.**: `db.posts.find({ $nor: [{ likes: { $ne: 200 }}, {title: { $eq: 'Post Title 1' }}] })`
+    - `$not`: Returns documents where the query does not match.
+        - **Ex.**: `db.posts.find({ likes: { $not: { $gt: 20 }} })`
+
+- Evaluation - The following operators assist in evaluating documents.
+    - `$regex`: Allows the use of regular expressions when evaluating field values.
+        - **Ex.**: `db.posts.find({ title: { $regex: /[a-zA-Z0-2]$/} })`
+    - `$text`: Performs a text search.
+        - **Ex.**: `db.posts.find({ $text: { $search: "Post", $caseSensitive: true } })` - If text index is set then it will give erorr "text index required for $text query"
+    - `$where`: Uses a JavaScript expression to match documents. 
+        - **Ex.**: 
+        ```
+        db.posts.find({
+            $where: {
+                function() {
+                    return (hex_md5(this.title) == "8141353da0aa50e45583807510610dc6");
+                } 
+            }
+        })
+        ```

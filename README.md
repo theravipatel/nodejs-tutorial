@@ -590,3 +590,12 @@ app.listen(5000);
 - So to fix error for MongoDB 6.0 version, we need to create `data/db/` folder in `C:\` drive. Now in terminal run `mongod` to start MongoDB server.
 - Now to Create/Access MongoDB using terminal, we need to download MongoDB Shell from https://www.mongodb.com/try/download/shell >> Tool section. Download zip file >> extract zip file and put in `C:\` drive. Now inside `bin` folder >> execute `mongosh.exe`. 
 - We can also use `Mongodb Compass Tool` which is a **GUI interface** for mongodb like `phpmyadmin` for MySQL for Create/Access MongoDB. To connect with MongoDB server from MongoDB Compass Tool, we need to first start MongoDB server (Run `mongod`)
+
+## 26) MongoDB: Basics of MongoDB
+- Using terminal there are few basic MongoDB commands to show/create/delete DB, collections etc as below:
+- `show dbs` = Shows all databases
+- `use DATABASE_NAME` = Create a new database
+- `db.dropDatabase()` = Delete current database
+- `db.createCollection('COLLECTION_NAME', [options])` = Create a collection of current db. **options** can be `{autoIndexID : true}` or `{capped : true, size : 6142800}`
+- `show collections` = Show current database's all collections
+- `db.COLLECTION_NAME.drop()` = Delete current database of particular collection

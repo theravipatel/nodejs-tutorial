@@ -599,3 +599,73 @@ app.listen(5000);
 - `db.createCollection('COLLECTION_NAME', [options])` = Create a collection of current db. **options** can be `{autoIndexID : true}` or `{capped : true, size : 6142800}`
 - `show collections` = Show current database's all collections
 - `db.COLLECTION_NAME.drop()` = Delete current database of particular collection
+
+## 27) MongoDB: CRUD Operations
+- CRUD Operatios using terminal in MongoDB can be done using below commands:
+- Create/Insert
+    - `insertOne()`
+    ```
+    db.posts.insertOne({
+        title: "Post Title 1",
+        category: "News",
+        likes: 1,
+        tags: ["news", "events"],
+        date: Date()
+    })
+    ```
+    - `insertMany()`
+    ```
+    db.posts.insertMany(
+        [
+            {
+                title: "Post Title 1",
+                category: "Event",
+                likes: 2,
+                tags: ["news", "events"],
+                date: Date()
+            },
+            {
+                title: "Post Title 2",
+                category: "Event",
+                likes: 1,
+                tags: ["news", "events"],
+                date: Date()
+            }
+        ]
+    )
+    ```
+- Read/Find
+    - `find()` - This method accepts a query object. If left empty, all documents will be returned.
+    ```
+    db.posts.find() // Return all documents
+    db.posts.find({category: "Event"}) // Return only matched documents
+    ```
+    - `findOne()` - This method accepts a query object. If left empty, it will return the first document it finds.
+    ```
+    db.posts.findOne()
+    db.posts.findOne({category: "Event"})
+    ```
+- Update
+    - `db.posts.updateOne()` - This method accepts two args objects: 1) SELECTION_CRITERIA, 2) UPDATED_DATA
+    - If you would like to insert the document if it is not found, you can use the `upsert` option.
+    ```
+    // This will update document
+    db.posts.updateOne({ title: "Post Title 1" }, { $set: { likes: 2 } })
+    ```
+    ```
+    // This will update document if match found but if match not found then data will be inserted
+    db.posts.updateOne({ title: "Post Title 5" }, { $set: { likes: 4 } }, { upsert: true })
+    ```
+    - `updateMany()` - The method will update all documents that match the provided query.
+    ```
+    db.posts.updateMany({ category: "Event" }, { $set: { likes: 50 } })
+    ```
+- Delete
+    - `deleteOne()` - This method will delete the first document that matches the query provided.
+    ```
+    db.posts.deleteOne({ title: "Post Title 1" })
+    ```
+    - `deleteMany()` - This method will delete all documents that match the query provided.
+    ```
+    db.posts.deleteMany({ likes: 20 })
+    ```

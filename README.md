@@ -577,3 +577,16 @@ app.use("/", route);
 
 app.listen(5000);
 ```
+
+## 25) MongoDB: Install MongoDB (6.0) and Mongodb Compass Tool
+- For **Windows OS System** below are the steps to install MongoDB (6.0)
+- Go to https://www.mongodb.com/try/download/community, select version/OS i.e. windows, macOS etc and download & install it.
+- Set Environment Variable >> path variable with the installed mongodb bin path i.e. `C:\Program Files\MongoDB\Server\6.0\bin` if not automatically set
+- In terminal run `mongod --version`
+- To start MongoDB server run `mongod`. But it will give error as below:
+```
+"msg":"DBException in initAndListen, terminating","attr":{"error":"NonExistentPath: Data directory C:\\data\\db\\ not found. Create the missing directory or specify another path using (1) the --dbpath command line option, or (2) by adding the 'storage.dbPath' option in the configuration file."
+```
+- So to fix error for MongoDB 6.0 version, we need to create `data/db/` folder in `C:\` drive. Now in terminal run `mongod` to start MongoDB server.
+- Now to Create/Access MongoDB using terminal, we need to download MongoDB Shell from https://www.mongodb.com/try/download/shell >> Tool section. Download zip file >> extract zip file and put in `C:\` drive. Now inside `bin` folder >> execute `mongosh.exe`. 
+- We can also use `Mongodb Compass Tool` which is a **GUI interface** for mongodb like `phpmyadmin` for MySQL for Create/Access MongoDB. To connect with MongoDB server from MongoDB Compass Tool, we need to first start MongoDB server (Run `mongod`)

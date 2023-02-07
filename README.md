@@ -714,3 +714,39 @@ app.listen(5000);
             }
         })
         ```
+
+## 29) MongoDB: Update Field and Array Operators
+- MongoDB update operator includes Field, Array operators as below:
+- Field - Operators can be used to update fields
+    - `$currentDate`: This operator is used to set the value of a field to current date, either as a Date or a Timestamp.
+        - **Ex.**: `db.posts.updateOne( {title: "Post Title 2"}, {$currentDate: {date: true}} )`
+    - `$inc`: This operator is used to increment the value of the field by the specified amount.
+        - **Ex.**: `db.posts.updateOne( {title: "Post Title 2"}, {$inc: {likes: 2}} )`
+    - `$min`: This operator is used only to update the field if the specified value is less than the existing field value.
+        - **Ex.**: `db.posts.updateOne( {title: "Post Title 2"}, {$min: {likes: 49}} )`
+    - `$max`: This operator is used only to update the field if the specified value is greater than the existing field value.
+        - **Ex.**: `db.posts.updateOne( {title: "Post Title 2"}, {$max: {likes: 55}} )`
+    - `$mul`: This operator is used to multiply the value of the field by the specified amount.
+        - **Ex.**: `db.posts.updateOne( {title: "Post Title 2"}, {$mul: {likes: 2}} )`
+    - `$rename`: This operator is used to rename a field.
+        - **Ex.**: `db.posts.updateOne( {title: "Post Title 2"}, {$rename: {likes: 'post_likes'}} )`
+    - `$setOnInsert`: This operator is used to set the value of a field if an update results in an insert of a document. It has no effect on update operations that modify existing documents.
+        - **Ex.**: `db.posts.updateOne({ title: "Post Title 1", category: "Event"}, { $currentDate: {date: true}}, { $setOnInsert: {likes: 20} }, { upsert: true })`
+    - `$unset`: Removes the field from the document
+        - **Ex.**: `db.posts.updateOne({ title: "Post Title 10"}, { $unset: {post_likes: ''}})`
+- Array - Operators assist with updating arrays
+    - `$addToSet`: Adds distinct elements to an array
+        - **Ex.**: `db.posts.updateOne({ title: "Post Title 10"}, {$addToSet: {tags: "event"}})`
+    - `$pop`: Removes the first (-1) or last (1) element of an array
+        - **Ex.**: `db.posts.updateOne({ title: "Post Title 5"}, {$pop: {tags: 1}})`
+    - `$pull`: Removes all elements from an array that match the query
+        - **Ex.**: `db.posts.updateOne({ title: "Post Title 5"}, {$pull: {tags: { $in: ["article", "test"]}}})`
+    - `$push`: Adds an element to an array. If the specified field in the $push operator is not an array, then this operation will fails.
+        - **Ex.**: `db.posts.updateOne({ title: "Post Title 5"}, {$push: {tags: "article"}})`
+    - `$push` with Modifiers: To add multiple values to array, sort, slice array use following modifiers
+        - `$each`: Add multiple documents to the specified field array
+            - **Ex.**: `db.posts.updateOne({ title: "Post Title 5"}, {$push: {tags: { $each: ["test 2", "test 1"]}}})`
+        - `$sort`: Sort all the items of the specified field array in ascending.
+            - **Ex.**: `db.posts.updateOne({ title: "Post Title 5"}, {$push: {tags: { $each: ["test 2", "test 1"], $sort: 1}}})`
+        - `$slice`: keep only the first specified sorted items of the specified field array
+            - **Ex.**: `db.posts.updateOne({ title: "Post Title 5"}, {$push: {tags: { $each: ["test 2", "test 1"], $sort: 1, $slice: 3}}})`

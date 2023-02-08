@@ -750,3 +750,36 @@ app.listen(5000);
             - **Ex.**: `db.posts.updateOne({ title: "Post Title 5"}, {$push: {tags: { $each: ["test 2", "test 1"], $sort: 1}}})`
         - `$slice`: keep only the first specified sorted items of the specified field array
             - **Ex.**: `db.posts.updateOne({ title: "Post Title 5"}, {$push: {tags: { $each: ["test 2", "test 1"], $sort: 1, $slice: 3}}})`
+
+## 30) Connect MongoDB with Node js
+- Install package from https://www.npmjs.com/package/mongodb
+```
+npm i mongodb
+```
+- connect_db_mongodb.js
+```
+// Include mongodb package
+var { MongoClient } = require("mongodb");
+
+// Mongodb Localhost URL
+var url = "mongodb://localhost:27017";
+
+// Database Name
+var db_name = "blog";
+
+// Mongodb client object
+var client = new MongoClient(url);
+
+async function getPostData() {
+    //Connect with mongodb
+    var conn = await client.connect();
+    var db = conn.db(db_name);
+
+    var posts_collection = db.collection("posts");
+    var posts_data = await posts_collection.find().toArray();
+
+    console.log(posts_data);
+}
+
+getPostData();
+```

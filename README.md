@@ -783,3 +783,50 @@ async function getPostData() {
 
 getPostData();
 ```
+
+## 31) MongoDB with NodeJs - CRUD Operation - Read/Get Data
+- Make a separate connection file and include it in all other file where required.
+- mongodb_connection.js
+```
+// Include mongodb package
+var { MongoClient } = require("mongodb");
+
+// Mongodb Localhost URL
+var url = "mongodb://localhost:27017";
+
+// Database Name
+var db_name = "blog";
+
+// Mongodb client object
+var client = new MongoClient(url);
+
+async function dbConnect(collection_name) {
+    let result = await client.connect();
+    db= result.db(db_name);
+    return db.collection(collection_name);
+  
+}
+module.exports= dbConnect;
+```
+- mongodb_crud_read_get_data.js
+```
+var dbConnect = require("./mongodb_connection");
+
+/*** Method 1 ***/
+
+dbConnect("posts").then((data) => {
+    data.find().toArray().then((data) => {
+        console.log(data);
+    });
+});
+
+/*** Method 2 ***/
+const getData = async (collection_name) => {
+   let data = await dbConnect(collection_name);
+   data = await data.find().toArray();
+   console.log(data);
+}
+
+getData("category");
+getData("posts");
+```

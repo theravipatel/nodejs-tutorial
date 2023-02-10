@@ -995,3 +995,41 @@ app.delete("/:id", async (req, res) => {
 
 app.listen("5000");
 ```
+
+## 39) Introduction to Mongoose with NodeJs
+- Mongoose is an **ODM(Object Data Modelling)** Library made for NodeJS and MongoDB Database, it enables users to create and manage relationships between data by mapping objects from MongoDB to NodeJS and managing the schema validations for the data.
+- MongoDB is a very flexible database since it is a NoSQL Database, which works on the concept of storing documents as just JSON Objects, however, to perform basic schema validations and manage the data easily we would need a library like Mongoose.
+- Terminologies to Know Before Getting Started:
+    - `Schema`: We do know that MongoDB is a schema-less database but still, we need to define the schema of the application user using mongoose for validation purposes, schema just means the overall structure and how the data is organized in the database.
+    - `Models`: Models in our context will be just high-level functions that will take defined schema and create an instance of the MongoDB document.
+- Install Mongoose using below command:
+```
+npm i mongoose
+```
+- Connect with database using mongoose
+- connect_db_mongoose.js
+```
+const mongoose = require("mongoose");
+
+const init = async () => {
+    // Database string
+    await mongoose.connect("mongodb://localhost:27017/blog");
+
+    // Schema
+    const categorySchema = new mongoose.Schema({
+        name: String,
+        status: String
+    });
+
+    // Model
+    const categoryModel = mongoose.model("category", categorySchema, "category");
+
+    // Save Data demo - here 'status' will not save as it is not defined in the 'categorySchema'
+    let data = new categoryModel({ name: "Test 8", status: "active" });
+    let result = await data.save();
+
+    console.log(result);
+}
+
+init();
+```

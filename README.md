@@ -895,3 +895,24 @@ const deleteData = async (collection_name, where) => {
 var category_where = { name: "Test 11" };
 deleteData("category", category_where);
 ```
+
+## 35) MongoDB with NodeJs/ExpressJs - Basic APIs - GET API
+- mongodb_api_get_data.js
+```
+const express = require("express");
+const dbConnect = require("./mongodb_connection");
+const app = express();
+
+const getData = async (collection_name) => {
+    let data = await dbConnect(collection_name);
+    data = await data.find().toArray();
+    return data;
+}
+
+app.get("/", async (req, res) => {
+    let category_data = await getData("category");
+    res.send(category_data);
+});
+
+app.listen("5000");
+```

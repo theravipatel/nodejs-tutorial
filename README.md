@@ -1324,3 +1324,33 @@ app.post("/upload-file", upload, (req, res) => {
 
 app.listen(5000);
 ```
+
+## 47) OS Module
+- To get host's operating system's info, we can include `os` module
+- os_module.js
+```
+const os = require("os");
+console.log(
+    "Architecture", "=", os.arch(), "\n",
+    "Free RAM", "=", os.freemem()/(1024*1024*1024), "\n",
+    "Total RAM", "=", os.totalmem()/(1024*1024*1024), "\n",
+    "Host Name", "=", os.hostname(), "\n",
+    "Platform", "=", os.platform(), "\n",
+    "User Info", "=", os.userInfo(), "\n",
+);
+```
+- Output will be like
+```
+Architecture = x64 
+ Free RAM = 3.539764404296875
+ Total RAM = 7.875644683837891
+ Host Name = HP-Autobot
+ Platform = win32
+ User Info = {
+  uid: -1,
+  gid: -1,
+  username: 'HP',
+  homedir: 'C:\\Users\\HP',
+  shell: null
+}
+```

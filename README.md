@@ -1388,3 +1388,20 @@ app.get("/search", (req, res) => {
 
 app.listen(5000);
 ```
+
+## 49) REPL - Read-Eval-Print-Loop
+- REPL stands for `Read` `Eval` `Print` `Loop` and it represents a computer environment like a Windows console or Unix/Linux shell where a command is entered and the system responds with an output in an interactive mode.
+- Node.js or Node comes bundled with a REPL environment. 
+- The REPL feature of Node is very useful in experimenting with Node.js codes and to debug JavaScript codes.
+- It performs the following tasks -
+    - `Read`    − Reads user's input, parses the input into JavaScript data-structure, and stores in memory.
+    - `Eval`    − Takes and evaluates the data structure.
+    - `Print`   − Prints the result.
+    - `Loop`    − Loops the above command until the user presses ctrl+c twice.
+- REPL can be started by simply running node on shell/console without any arguments and You will see the REPL Command prompt > where you can type any Node.js command as follows:
+```
+C:\Users\HP>node
+Welcome to Node.js v14.17.6.
+Type ".help" for more information.
+>
+```

@@ -1405,3 +1405,30 @@ Welcome to Node.js v14.17.6.
 Type ".help" for more information.
 >
 ```
+
+## 50) MySQL with Node Js: MySQL package installation and Database Connection
+- Install package from https://www.npmjs.com/package/mysql
+```
+npm i mysql
+```
+- connect_db_mysql.js
+```
+// Include MySQL package
+const mysql = require("mysql");
+
+//Create connection
+const conn = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "nodejstest"
+});
+
+conn.connect((err) => {
+    if (err) {
+        console.log("Error!!!", err.message);
+    } else {
+        console.log("Success!!! Database has been connected");
+    }
+});
+```

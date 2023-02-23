@@ -1649,3 +1649,28 @@ conn.connect((err) => {
     }
 });
 ```
+
+## 54) PostgreSQL with Node Js: PostgreSQL package installation and Database Connection
+- - Install node-postgres package from https://www.npmjs.com/package/pg
+```
+npm i pg
+```
+- connect_db_postgresql.js
+```
+const Pool = require("pg").Pool;
+const conn = new Pool({
+    host: 'localhost',
+    port: 5432,
+    user: 'postgres',
+    password: '123456',
+    database: 'blog'
+});
+
+conn.connect((err) => {
+    if (err) {
+        console.log("Error!!!", err.message);
+    } else {
+        console.log("Success!!! Database has been connected");
+    }
+});
+```

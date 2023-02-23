@@ -1674,3 +1674,99 @@ conn.connect((err) => {
     }
 });
 ```
+
+## 55) PostgreSQL with NodeJs/ExpressJs - Basic APIs - POST/PUT/GET/DELETE APIs
+- Make a separate connection file and include it in all other file where required.
+- postgresql_connection.js
+```
+const Pool = require("pg").Pool;
+const conn = new Pool({
+    host: 'localhost',
+    port: 5432,
+    user: 'postgres',
+    password: '123456',
+    database: 'blog'
+});
+
+conn.connect((err) => {
+    if (err) {
+        console.log("Error!!!", err.message);
+    } else {
+        console.log("Success!!! Database has been connected");
+    }
+});
+
+module.exports = conn;
+```
+- postgresql_api_basic_apis.js
+```
+const express = require("express");
+const conn = require("./postgresql_connection");
+
+const app = express();
+
+app.use(express.json());
+
+// GET API
+app.get('/', (req, res) => {
+    const query = "SELECT * FROM users";
+    conn.query(query, (err, result) => {
+        if (err) {
+            res.status(500).send("Error!!! " + err.message);
+        } else {
+            console.log(result.rowCount);
+            res.status(200).send(result.rows);
+        }
+    });
+});
+
+// POST API
+app.post('/create-user', (req, res) => {
+    const data = [req.body.name, req.body.email, req.body.phone];
+    //const { name, email, phone } = req.body;
+    //const data = [name, email, phone];
+    
+    const query = "INSERT INTO users (name, email, phone) VALUES ($1, $2, $3)";
+    conn.query(query, data, (err, result, fields) => {
+        if (err) {
+            res.status(500).send("Error!!! " + err.message);
+        } else {
+            res.status(200).send(result);
+        }
+    });
+});
+
+// PUT API
+app.put("/update-user/:id", (req, res) => {
+    /**
+     * Here first in the query, first param is 'name', second is 'email' and so... 
+     * 'id' is fourth param
+     * So we will set data array as per this order only.
+    */
+    const data = [req.body.name, req.body.email, req.body.phone, req.params.id];
+
+    const query = "UPDATE users SET name = $1, email = $2, phone = $3 WHERE id = $4";
+    conn.query(query, data, (err, result, fields) => {
+        if (err) {
+            res.status(500).send("Error!!! " + err.message);
+        } else {
+            res.status(200).send(result);
+        }
+    });
+});
+
+// DELETE API
+app.delete("/delete-user/:id", (req, res) => {
+    const data = [req.params.id];
+    const query = "DELETE FROM users WHERE id = $1";
+    conn.query(query, data, (err, result, fields) => {
+        if (err) {
+            res.status(500).send("Error!!! " + err.message);
+        } else {
+            res.status(200).send(result);
+        }
+    });
+});
+
+app.listen(5000);
+```

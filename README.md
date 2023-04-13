@@ -2168,3 +2168,32 @@ eventData.printGuestList();
  *      Adam is attending Birthday Party
 */
 ```
+
+## 61) Error Messages in Node Js
+- Error messages contain a lot of useful information, but only if we know what we are looking at.
+- Below is a complete error message generated when running code having some error.
+- Code with error:
+```
+console.log(new_var); // here 'new_var' is not defined.
+```
+- Error message:
+```
+F:\xampp\htdocs\demo\nodejs\es6_arrow_function.js:1
+console.log(new_var);
+            ^
+ReferenceError: new_var is not defined
+    at Object.<anonymous> (F:\xampp\htdocs\demo\nodejs\es6_arrow_function.js:1:13)
+    at Module._compile (internal/modules/cjs/loader.js:1072:14)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1101:10)
+    at Module.load (internal/modules/cjs/loader.js:937:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:778:12)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+    at internal/main/run_main_module.js:17:47
+```
+- The first few lines of the error contain the most useful information as follows:
+    - `First line`: It contains a path to the exact script where the error was thrown. It also contains the line number. Using that line, we could tell that the issue is on line 1 of es6_arrow_function.js. "F:\xampp\htdocs\demo\nodejs\es6_arrow_function.js:1"
+    - `Second line`: It shows the line of code that caused the error. "console.log(new_var);"
+    - `Third line`: It uses the `^` character to point to the specific part of the line that the error came from.
+    - `Fourth line`: It is blank.
+    - `Fifth line`: It contains the error message from V8. "ReferenceError: new_var is not defined"
+- Everything after the fifth line is part of the stack trace. This shows a list of all the functions that were running to get to the point where the program crashed. The top of the stack trace starts with the function which threw the error

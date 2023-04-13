@@ -2071,3 +2071,18 @@ yargs.command({
 });
 console.log(yargs.argv);
 ```
+- Run below command to execute above code:
+```
+node argument_parsing_with_yargs.js add2 --title="This is title" --body="This is body"
+```
+- Output
+```
+Title: This is title
+Body: This is body
+{
+  _: [ 'add2' ],
+  title: 'This is title',
+  body: 'This is body',
+  '$0': 'argument_parsing_with_yargs.js'
+}
+```

@@ -2022,3 +2022,52 @@ app.get("/logout", (req, res, next) => {
 
 app.listen(5000);
 ```
+
+## 58) Argument Parsing with Yargs in Node Js
+- Yargs can be used to make it easier to work with complex command line arguments
+- Install Yargs package from https://www.npmjs.com/package/yargs
+```
+npm i yargs
+```
+
+- argument_parsing_with_yargs.js
+```
+const yargs = require('yargs');
+yargs.version('1.0.0');
+yargs.command({
+    command: "add",
+    describe: "Add a static note text!",
+    handler: () => {
+        console.log("Hello World!");
+    }
+});
+console.log(yargs.argv);
+```
+
+- `Adding Command Options`: Options are additional pieces of information passed along with the command. We can set
+up options for a command using the `builder` property. Options can be with `--` i.e. `--OptionName=""` with command.
+```
+const yargs = require('yargs');
+yargs.version('1.0.0');
+yargs.command({
+    command: "add2",
+    describe: "Add a dynamic note text from commands options!",
+    builder: {
+        title: { // Option Name
+            describe: "Title of a note!",
+            demandOption: true, // True means option is required to pass with the command
+            type: String // Type of option
+        },
+        body: { // Option Name
+            describe: "Body of a note!",
+            demandOption: false, // false means option is not required to pass with the command
+            type: String // Type of option
+        }
+    },
+    handler: function (argv) {
+        console.log('Title: ' + argv.title)
+        console.log('Body: ' + argv.body)
+    }
+});
+console.log(yargs.argv);
+```

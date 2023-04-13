@@ -2110,3 +2110,61 @@ console.log(bookJSON); // Print: {"title":"The NodeJS Tutorial","author":"Ravi P
 const bookObject = JSON.parse(bookJSON);
 console.log(bookObject.title); // Print: The NodeJS Tutorial
 ```
+
+## 60) ES6 Arrow Functions and 'this' Binding
+- Arrow functions offer up an alternative syntax from the standard ES5 function. While the syntax is obviously different, we still have the two important pieces, `an arguments list` and `a function body`.
+- Arrow functions have an optional shorthand syntax. This is useful **when we have a function that immediately returns a value**.
+- es6_arrow_function.js
+```
+/**
+ * ES5 Function
+ */
+const square1 = function (x) {
+    return x * x
+}
+console.log(square1(2)); // Output: 4
+
+
+/** 
+ * ES6 Standard Arrow Function
+ */
+const square2 = (x) => {
+    return x * x
+}
+console.log(square2(2)); // Output: 4
+
+
+/**
+ * ES6 Shorthand Arrow Function
+ */
+const square3 = (x) => x * x
+
+console.log(square3(2)); // Output: 4Function
+const square3 = (x) => x * x
+
+```
+- `this Binding`: Arrow functions don't bind their own this value. Instead, the this value of the scope in which it was defined is accessible. This makes arrow functions bad candidates for methods, as this won't be a reference to the object the method is defined on.
+```
+/**
+ * 'this' Binding
+ */
+const eventData = {
+    name: 'Birthday Party',
+    guestList: ['John', 'Sam', 'Adam'],
+    printGuestList() {
+        console.log('Guest list for ' + this.name);
+
+        this.guestList.forEach((guest) => {
+            console.log(guest + ' is attending ' + this.name)
+        });
+    }
+}
+eventData.printGuestList();
+/** 
+ * Output:
+ *      Guest list for Birthday Party
+ *      John is attending Birthday Party
+ *      Sam is attending Birthday Party
+ *      Adam is attending Birthday Party
+*/
+```

@@ -2197,3 +2197,45 @@ ReferenceError: new_var is not defined
     - `Fourth line`: It is blank.
     - `Fifth line`: It contains the error message from V8. "ReferenceError: new_var is not defined"
 - Everything after the fifth line is part of the stack trace. This shows a list of all the functions that were running to get to the point where the program crashed. The top of the stack trace starts with the function which threw the error
+
+
+## 62) Making HTTP Requests using Node JS
+- Using HTTP requests from Node we can enable our app to communicate with other APIs and servers to do a wide variety of things.
+- Everything from fetching real-time weather data to sending text messages to users.
+- There are several libraries that make it easy to fire off HTTP requests. Here we will see `axios` library.
+- Install axios package from https://www.npmjs.com/package/axios
+```
+npm i axios
+```
+- make_http_request.js
+```
+const axios = require("axios");
+
+// GET request
+axios
+  .get("https://reqres.in/api/users/2")
+  .then((response) => {
+    console.log(response.data);
+    console.log(response.data.data.email);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+```
+- Output:
+```
+{
+  data: { 
+    id: 2,
+    email: 'janet.weaver@reqres.in',
+    first_name: 'Janet',
+    last_name: 'Weaver',
+    avatar: 'https://reqres.in/img/faces/2-image.jpg'
+  },
+  support: {
+    url: 'https://reqres.in/#support-heading',
+    text: 'To keep ReqRes free, contributions towards server costs are appreciated!'
+  }
+}
+janet.weaver@reqres.in
+```

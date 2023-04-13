@@ -3,6 +3,10 @@ const express = require("express");
 const multer = require("multer");
 const app = express();
 
+/**
+ * Ref. : https://stackoverflow.com/a/60408823
+ */
+
 const mult_storage = multer.diskStorage({
     destination: function(req, file, call_back) {
         call_back(null, "my_folder")

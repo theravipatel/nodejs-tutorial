@@ -1278,6 +1278,7 @@ app.listen(5000);
 
 ## 46) NodeJs/ExpressJs - Upload File API using Multer
 - Install `multer` package which is used for uploading file.
+- Ref. : https://stackoverflow.com/a/60408823
 ```
 npm i multer
 ```

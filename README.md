@@ -2086,3 +2086,27 @@ Body: This is body
   '$0': 'argument_parsing_with_yargs.js'
 }
 ```
+
+## 59) Storing Data with JSON in Node Js
+- JSON, which stands for `JavaScript Object Notation`, is a lightweight data format. 
+- JSON makes it easy to store or transfer data.
+- Since JSON is nothing more than a string, it can be used to store data in a text file or transfer data via an HTTP requests between two machines.
+- JavaScript provides two methods for working with JSON. The first is `JSON.stringify` and the second is `JSON.parse`
+- `JSON.stringify`: Converts a JavaScript object into a JSON string.
+- `JSON.parse`: Converts a JSON string into a JavaScript object.
+- JSON looks similar to a JavaScript object, but there are some differences.
+- The most obvious is that all properties are wrapped in `double-quotes`. **Single-quotes can't be used here, as JSON only supports `double-quotes`**.
+- storing_data_with_json.js
+```
+const book = {
+    title: 'The NodeJS Tutorial',
+    author: 'Ravi Patel'
+   }
+// Covert JavaScript object into JSON string
+const bookJSON = JSON.stringify(book);
+console.log(bookJSON); // Print: {"title":"The NodeJS Tutorial","author":"Ravi Patel"}
+
+// Covert JSON string into object
+const bookObject = JSON.parse(bookJSON);
+console.log(bookObject.title); // Print: The NodeJS Tutorial
+```

@@ -2199,7 +2199,7 @@ ReferenceError: new_var is not defined
 - Everything after the fifth line is part of the stack trace. This shows a list of all the functions that were running to get to the point where the program crashed. The top of the stack trace starts with the function which threw the error
 
 
-## 62) Making HTTP Requests using Node JS
+## 62) Making HTTP Requests using Node JS library
 - Using HTTP requests from Node we can enable our app to communicate with other APIs and servers to do a wide variety of things.
 - Everything from fetching real-time weather data to sending text messages to users.
 - There are several libraries that make it easy to fire off HTTP requests. Here we will see `axios` library.
@@ -2239,3 +2239,45 @@ axios
 }
 janet.weaver@reqres.in
 ```
+
+## 63) Making HTTP Requests without using Node JS library
+- Node.js provides two core modules for making HTTP requests so we can make HTTP request withour using node package but we have to write more code unlike using node package like `axios`. 
+- The `http module` can be used to make http requests and the `https module` can be used to make https requests.
+- make_http_request_without_using_library.js
+```
+const https = require("https");
+const url = "https://reqres.in/api/users/2";
+const request = https.request(url, (response) => {
+    let data = "";
+    response.on("data", (chunk) => {
+        data = data + chunk.toString();
+    });
+    response.on("end", () => {
+        const body = JSON.parse(data);
+        console.log(body);
+        console.log(body.data.email);
+    });
+});
+request.on("error", (error) => {
+    console.log("An error", error);
+});
+request.end();
+```
+- Output:
+```
+{
+  data: { 
+    id: 2,
+    email: 'janet.weaver@reqres.in',
+    first_name: 'Janet',
+    last_name: 'Weaver',
+    avatar: 'https://reqres.in/img/faces/2-image.jpg'
+  },
+  support: {
+    url: 'https://reqres.in/#support-heading',
+    text: 'To keep ReqRes free, contributions towards server costs are appreciated!'
+  }
+}
+janet.weaver@reqres.in
+```
+- **NOTE: Here we can see both with using library like axios and without using library for making HTTP request, OUTPUT is same in both case.**

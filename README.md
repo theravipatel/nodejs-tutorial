@@ -2325,3 +2325,18 @@ const getUserDetail = ({ name, age }) => {
 }
 getUserDetail(user1);
 ```
+
+
+## 65) Avoiding Global Modules in Node Js
+- By avoiding use of Global Modules, we ensures that our application installs all the dependencies we need to run. I.e. when we run `npm install`, it should install all the dependencies which we required for our Node Js app.
+- For example, we have installed `nodemon` package globally which will restart our app whenever our app code changed. We can create a dev script with the value `nodemon index.js -e js,ejs`. This will start up the dev server anytime we run `npm run dev`.
+- The above dev script needs nodemon to be installed. The issue is that nodemon isn't listed as a dependency in package.json. So when we run `npm install && npm run dev`, it will not work as expected as it requires `nodemon` package to be installed.
+- To fix this issue, we can uninstall `nodemon` globally.
+```
+npm uninstall -g nodemon
+```
+- Now, install it as a local dependency.
+```
+npm install nodemon
+```
+- Now, npm install will be able to install all your application dependencies, including `nodemon`.

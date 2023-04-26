@@ -1352,7 +1352,137 @@ customer
 });
 ```
 
-## 47) NodeJs/ExpressJs - Upload File API using Multer
+
+## 47) Mongoose with NodeJs/ExpressJs - Relationship - One to Many
+- mongoose_relationship_one_to_many.js
+- In the below example, "posts" has multiple comments so referenced "comments" collection with "posts" collection.
+- Note: Here we need to use route to be able to see returned one-to-many data as in the console it is not showing referenced field i.e. comment's detail 
+```
+/**
+ * Set ExpressJs
+ */
+const express = require("express");
+const app = express();
+app.use(express.json());
+
+/**
+ * Mongoose Connection
+ */
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", true);
+mongoose
+  .connect("mongodb://localhost:27017/relationships")
+  .then(() => console.log("Successfully connect to MongoDB."))
+  .catch((err) => console.error("Connection error", err));
+
+/**
+ * Models & Schemas
+ */
+const commentsSchema = new mongoose.Schema({
+  name: String,
+});
+const commentsModel = mongoose.model("comments", commentsSchema);
+
+const postsSchema = new mongoose.Schema({
+  name: String,
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "comments",
+    },
+  ],
+});
+const postsModel = mongoose.model("posts", postsSchema);
+
+/**
+ * Controllers
+ */
+const createPost = (data) => {
+  return postsModel
+    .create(data)
+    .then((result) => {
+      console.log("Post Created.");
+      return result;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+const createComment = (post_id, data) => {
+  console.log("Create Comment Function", data);
+  return commentsModel
+    .create(data)
+    .then((result) => {
+      console.log("Comment Created.");
+      return postsModel.findByIdAndUpdate(
+        post_id,
+        { $push: { comments: result._id } },
+        { new: true }
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+/**
+ * API Calls
+ */
+const run = async () => {
+  var post = await createPost({
+    name: "Post 1",
+  });
+  console.log(post);
+
+  var comment = await createComment(post._id, {
+    name: "Comment 1",
+  });
+  console.log(comment);
+
+  var comment = await createComment(post._id, {
+    name: "Comment 2",
+  });
+  console.log(comment);
+};
+
+/**
+ * run() function is just for inserting data into the database
+ * so we can able to execute find method to get data after commented it.
+ */
+//run();
+
+/**
+ * GET API
+ */
+app.get("/get", async (req, res) => {
+  const result = await postsModel.find().populate("comments", "-_id");
+  console.log(result);
+  res.send(result);
+});
+app.listen(5000);
+
+```
+- Output:
+```
+[
+    {
+        "_id": "6448a9bf79e246e6cf877ede",
+        "name": "Post 1",
+        "comments": [
+            {
+                "name": "Comment 1"
+            },
+            {
+                "name": "Comment 2"
+            }
+        ],
+        "__v": 0
+    }
+]
+```
+
+
+## 48) NodeJs/ExpressJs - Upload File API using Multer
 - Install `multer` package which is used for uploading file.
 - Ref. : https://stackoverflow.com/a/60408823
 ```
@@ -1402,7 +1532,7 @@ app.post("/upload-file", upload, (req, res) => {
 app.listen(5000);
 ```
 
-## 48) OS Module
+## 49) OS Module
 - To get host's operating system's info, we can include `os` module
 - os_module.js
 ```
@@ -1432,7 +1562,7 @@ Architecture = x64
 }
 ```
 
-## 49) Events module and Event Emitter object
+## 50) Events module and Event Emitter object
 - Node.js has a built-in module, called `events`, where we can create and listen our own events.
 - To include the built-in Events module use the require(events) method. 
 - All event properties and methods are an instance of an EventEmitter object so to access these properties and methods, we need to create an `EventEmitter` object.
@@ -1466,7 +1596,7 @@ app.get("/search", (req, res) => {
 app.listen(5000);
 ```
 
-## 50) REPL - Read-Eval-Print-Loop
+## 51) REPL - Read-Eval-Print-Loop
 - REPL stands for `Read` `Eval` `Print` `Loop` and it represents a computer environment like a Windows console or Unix/Linux shell where a command is entered and the system responds with an output in an interactive mode.
 - Node.js or Node comes bundled with a REPL environment. 
 - The REPL feature of Node is very useful in experimenting with Node.js codes and to debug JavaScript codes.
@@ -1483,7 +1613,7 @@ Type ".help" for more information.
 >
 ```
 
-## 51) MySQL with Node Js: MySQL package installation and Database Connection
+## 52) MySQL with Node Js: MySQL package installation and Database Connection
 - Install package from https://www.npmjs.com/package/mysql
 ```
 npm i mysql
@@ -1510,7 +1640,7 @@ conn.connect((err) => {
 });
 ```
 
-## 52) MySQL with NodeJs/ExpressJs - Basic APIs - POST/PUT/GET/DELETE APIs
+## 53) MySQL with NodeJs/ExpressJs - Basic APIs - POST/PUT/GET/DELETE APIs
 - Make a separate connection file and include it in all other file where required.
 - mysql_connection.js
 ```
@@ -1643,7 +1773,7 @@ app.delete("/delete-user/:id", (req, res) => {
 app.listen(5000);
 ```
 
-## 53) MySQL with NodeJs - Create Database
+## 54) MySQL with NodeJs - Create Database
 - mysql_create_database.js
 ```
 // Include MySQL package
@@ -1684,7 +1814,7 @@ conn.connect((err) => {
 });
 ```
 
-## 54) MySQL with NodeJs - Create Table
+## 55) MySQL with NodeJs - Create Table
 - mysql_create_table.js
 ```
 // Include MySQL package
@@ -1727,7 +1857,7 @@ conn.connect((err) => {
 });
 ```
 
-## 55) PostgreSQL with Node Js: PostgreSQL package installation and Database Connection
+## 56) PostgreSQL with Node Js: PostgreSQL package installation and Database Connection
 - - Install node-postgres package from https://www.npmjs.com/package/pg
 ```
 npm i pg
@@ -1752,7 +1882,7 @@ conn.connect((err) => {
 });
 ```
 
-## 56) PostgreSQL with NodeJs/ExpressJs - Basic APIs - POST/PUT/GET/DELETE APIs
+## 57) PostgreSQL with NodeJs/ExpressJs - Basic APIs - POST/PUT/GET/DELETE APIs
 - Make a separate connection file and include it in all other file where required.
 - postgresql_connection.js
 ```
@@ -1848,7 +1978,7 @@ app.delete("/delete-user/:id", (req, res) => {
 app.listen(5000);
 ```
 
-## 57) JSON Web Token (JWT) Authentication using Node Js / Express Js
+## 58) JSON Web Token (JWT) Authentication using Node Js / Express Js
 - `JSON Web Token` is an open standard for securely transferring data within parties using a JSON object.
 - JWT is used for `stateless authentication mechanism` for users and providers, this means maintaining session is on the client-side instead of storing sessions on the server.
 - Install jsonwebtoken package from https://www.npmjs.com/package/jsonwebtoken
@@ -1935,7 +2065,7 @@ app.post("/profile", authenticateToken, (req, res) => {
 app.listen(5000);
 ```
 
-## 58) Passport Js Authentication using Node Js / Express Js
+## 59) Passport Js Authentication using Node Js / Express Js
 - The Passport JS framework, consists of 2 separate libraries:
     - `Passport JS` library: 
         - It is primary library and always required.
@@ -2099,7 +2229,7 @@ app.get("/logout", (req, res, next) => {
 app.listen(5000);
 ```
 
-## 59) Argument Parsing with Yargs in Node Js
+## 60) Argument Parsing with Yargs in Node Js
 - Yargs can be used to make it easier to work with complex command line arguments
 - Install Yargs package from https://www.npmjs.com/package/yargs
 ```
@@ -2163,7 +2293,7 @@ Body: This is body
 }
 ```
 
-## 60) Storing Data with JSON in Node Js
+## 61) Storing Data with JSON in Node Js
 - JSON, which stands for `JavaScript Object Notation`, is a lightweight data format. 
 - JSON makes it easy to store or transfer data.
 - Since JSON is nothing more than a string, it can be used to store data in a text file or transfer data via an HTTP requests between two machines.
@@ -2187,7 +2317,7 @@ const bookObject = JSON.parse(bookJSON);
 console.log(bookObject.title); // Print: The NodeJS Tutorial
 ```
 
-## 61) ES6 Arrow Functions and 'this' Binding
+## 62) ES6 Arrow Functions and 'this' Binding
 - Arrow functions offer up an alternative syntax from the standard ES5 function. While the syntax is obviously different, we still have the two important pieces, `an arguments list` and `a function body`.
 - Arrow functions have an optional shorthand syntax. This is useful **when we have a function that immediately returns a value**.
 - es6_arrow_function.js
@@ -2245,7 +2375,7 @@ eventData.printGuestList();
 */
 ```
 
-## 62) Error Messages in Node Js
+## 63) Error Messages in Node Js
 - Error messages contain a lot of useful information, but only if we know what we are looking at.
 - Below is a complete error message generated when running code having some error.
 - Code with error:
@@ -2275,7 +2405,7 @@ ReferenceError: new_var is not defined
 - Everything after the fifth line is part of the stack trace. This shows a list of all the functions that were running to get to the point where the program crashed. The top of the stack trace starts with the function which threw the error
 
 
-## 63) Making HTTP Requests using Node JS library
+## 64) Making HTTP Requests using Node JS library
 - Using HTTP requests from Node we can enable our app to communicate with other APIs and servers to do a wide variety of things.
 - Everything from fetching real-time weather data to sending text messages to users.
 - There are several libraries that make it easy to fire off HTTP requests. Here we will see `axios` library.
@@ -2316,7 +2446,7 @@ axios
 janet.weaver@reqres.in
 ```
 
-## 64) Making HTTP Requests without using Node JS library
+## 65) Making HTTP Requests without using Node JS library
 - Node.js provides two core modules for making HTTP requests so we can make HTTP request withour using node package but we have to write more code unlike using node package like `axios`. 
 - The `http module` can be used to make http requests and the `https module` can be used to make https requests.
 - make_http_request_without_using_library.js
@@ -2359,7 +2489,7 @@ janet.weaver@reqres.in
 - **NOTE: Here we can see both with using library like axios and without using library for making HTTP request, OUTPUT is same in both case.**
 
 
-## 65) ES6 Object Property Shorthand and Destructuring
+## 66) ES6 Object Property Shorthand and Destructuring
 - `Property shorthand`: It makes easier to define properties when creating a new object. It provides a shortcut for defining a property whose value comes from a variable of the same name. The shorthand allows you to remove the colon and the reference to the variable. When JavaScript sees this, it’ll get the property value from the variable with the same name.
 - `Object Destructuring`: It gives us a syntax for pulling properties off of objects and into standalone variables. This is useful when working with the same object properties throughout our code. For example, Instead of writing **user.name** a dozen times, we could destructure the property into a **name** variable.
 - es6_object_prop_shorthand_destructuring.js
@@ -2403,7 +2533,7 @@ getUserDetail(user1);
 ```
 
 
-## 66) Avoiding Global Modules in Node Js
+## 67) Avoiding Global Modules in Node Js
 - By avoiding use of Global Modules, we ensures that our application installs all the dependencies we need to run. I.e. when we run `npm install`, it should install all the dependencies which we required for our Node Js app.
 - For example, we have installed `nodemon` package globally which will restart our app whenever our app code changed. We can create a dev script with the value `nodemon index.js -e js,ejs`. This will start up the dev server anytime we run `npm run dev`.
 - The above dev script needs nodemon to be installed. The issue is that nodemon isn't listed as a dependency in package.json. So when we run `npm install && npm run dev`, it will not work as expected as it requires `nodemon` package to be installed.

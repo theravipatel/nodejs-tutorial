@@ -42,6 +42,10 @@ const showPayments = async (data) => {
     console.log(result);
 }
 
+
+/**
+ * API Calls
+ */
 const customerData = {
     "name": "User 1",
     "phone": "9876543210",
